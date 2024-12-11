@@ -10,7 +10,7 @@ How to use it:
 
 Clone the repository:
 ```
-git clone ...
+git clone https://github.com/clausmichele/esa-snap-docker.git
 ```
 
 Build the docker image:
