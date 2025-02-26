@@ -1,7 +1,5 @@
 # ESA SNAP 11 docker
 
-**The content of this repository is still work in progress!**
-
 Dockerized version of SNAP 11 with the Sentinel-1 toolbox.
 
 Based on Ubuntu 24.04.
