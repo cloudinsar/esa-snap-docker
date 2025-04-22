@@ -57,4 +57,4 @@ ENV CONDA_DEFAULT_ENV=snap
 ENV PATH=/opt/conda/envs/snap/bin:$PATH
 
 # Optional test (comment out in production)
-RUN conda run -n snap python -c "import esa_snappy; print('SNAP-Python interface working')"
+#RUN conda run -n snap python -c "import esa_snappy; print('SNAP-Python interface working')"
