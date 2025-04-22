@@ -37,7 +37,7 @@ RUN apt-get update && \
 RUN python3 -m pip install --no-cache-dir notebook jupyterlab
 
 # Optional: Install JupyterHub if needed
-# RUN python3 -m pip install --no-cache-dir jupyterhub
+RUN python3 -m pip install --no-cache-dir jupyterhub
 
 # Set working directory
 WORKDIR /src/snap
