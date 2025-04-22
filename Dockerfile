@@ -11,7 +11,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 # Create a non-root user with UID 1000
 ARG NB_USER=jovyan
-ARG NB_UID=1000
+ARG NB_UID=59595
 ENV USER=${NB_USER}
 ENV NB_UID=${NB_UID}
 ENV HOME=/home/${NB_USER}
