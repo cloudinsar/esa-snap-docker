@@ -49,6 +49,8 @@ ENV PATH="${PATH}:/usr/local/esa-snap/bin"
 # Auto-activate conda env in notebooks and shells
 RUN echo "conda activate snap" >> ~/.bashrc
 
+RUN snap --nogui --nosplash --modules --install eu.esa.snap.esa.snappy
+
 # Install Python packages in 'snap' environment
 RUN snap --nogui --nosplash --snappy /opt/conda/envs/snap/bin/python3.10 /opt/conda/envs/snap/lib/python3.10/site-packages/
 
