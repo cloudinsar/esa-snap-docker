@@ -24,6 +24,8 @@ USER jovyan
 
 RUN pip3 install -r /requirements.txt
 
+USER root
+
 # Set SNAP-related env variables
 ENV SNAPVER=11 \
     SNAP_HOME=/usr/local/esa-snap \
