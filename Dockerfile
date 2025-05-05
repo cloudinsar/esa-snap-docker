@@ -13,9 +13,13 @@ RUN apt-get update && \
       bzip2 \
       libgl1 \
       openjdk-11-jdk \
-      ca-certificates && \
+      ca-certificates \
+      python3-pip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt /requirements.txt
+RUN pip3 install -r requirements.txt
 
 # Set SNAP-related env variables
 ENV SNAPVER=11 \
@@ -32,31 +36,16 @@ RUN wget -q -O /src/snap/esa-snap_all_unix_${SNAPVER}_0_0.sh \
     sh /src/snap/esa-snap_all_unix_${SNAPVER}_0_0.sh -q -varfile /src/snap/response.varfile && \
     rm -f /src/snap/esa-snap_all_unix_${SNAPVER}_0_0.sh
 
-# Fix permissions for conda cache before switching to non-root user
-RUN mkdir -p /home/jovyan/.cache/conda && \
-    chown -R ${NB_UID}:${NB_GID} /home/jovyan/.cache
-
 # Switch back to notebook user (UID 1000)
 USER ${NB_UID}
-
-# Create and activate a conda environment named snap
-RUN conda create -n snap python=3.10 -y && \
-    conda clean -afy
 
 # Add SNAP bin to PATH
 ENV PATH="${PATH}:/usr/local/esa-snap/bin"
 
-# Auto-activate conda env in notebooks and shells
-RUN echo "conda activate snap" >> ~/.bashrc
-
 RUN snap --nogui --nosplash --modules --install eu.esa.snap.esa.snappy
 
 # Install Python packages in 'snap' environment
-RUN snap --nogui --nosplash --snappy /opt/conda/envs/snap/bin/python3.10 /opt/conda/envs/snap/lib/python3.10/site-packages/
-
-# Ensure environment is activated in Binder
-ENV CONDA_DEFAULT_ENV=snap
-ENV PATH=/opt/conda/envs/snap/bin:$PATH
+# RUN snap --nogui --nosplash --snappy /usr/bin/python3.10 /usr/bin/lib/python3.10/site-packages/
 
 # Optional test (comment out in production)
 #RUN conda run -n snap python -c "import esa_snappy; print('SNAP-Python interface working')"
