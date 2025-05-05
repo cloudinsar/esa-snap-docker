@@ -1,4 +1,4 @@
-FROM jupyter/minimal-notebook:python-3.11
+FROM jupyter/minimal-notebook:python-3.10
 
 # Set root to install system packages
 USER root
@@ -40,17 +40,17 @@ RUN mkdir -p /home/jovyan/.cache/conda && \
 USER ${NB_UID}
 
 # Create and activate a conda environment named snap
-RUN conda create -n snap python=3.11 -y && \
+RUN conda create -n snap python=3.10 -y && \
     conda clean -afy
-
-# Install Python packages in 'snap' environment
-RUN conda run -n snap python -m pip install esa_snappy jpy
 
 # Add SNAP bin to PATH
 ENV PATH="${PATH}:/usr/local/esa-snap/bin"
 
 # Auto-activate conda env in notebooks and shells
 RUN echo "conda activate snap" >> ~/.bashrc
+
+# Install Python packages in 'snap' environment
+RUN snap --nogui --nosplash --snappy /opt/conda/envs/snap/bin/python3.10 /opt/conda/envs/snap/lib/python3.10/site-packages/
 
 # Ensure environment is activated in Binder
 ENV CONDA_DEFAULT_ENV=snap
