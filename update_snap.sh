@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 /usr/local/esa-snap/bin/snap --nosplash --nogui --modules --update-all 2>&1 | while read -r line; do
     echo "$line"
